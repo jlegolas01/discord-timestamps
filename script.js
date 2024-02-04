@@ -1,10 +1,12 @@
 // Function to replace ingame time with Discord timestamps
 function parseIngameTimeToDiscordTimestamp(inputText) {
     return inputText.replace(/at around (\d{2}):(\d{2}) ingame time/g, function(match, hours, minutes) {
-        const date = new Date(); // Using current date for example
-        date.setHours(hours, minutes, 0); // Setting hours and minutes from the match
+        const now = new Date();
+        const utcOffset = now.getTimezoneOffset() * 60000; // Offset in milliseconds
+        const date = new Date(Date.now() - utcOffset); // Adjust to UTC (GMT+0)
+        date.setUTCHours(hours, minutes, 0); // Use UTC hours to simulate GMT+0
         const unixTimestamp = Math.floor(date.getTime() / 1000);
-        return `<t:${unixTimestamp}:t>`; // Format for Discord timestamp (short time)
+        return `<t:${unixTimestamp}:t>`; // Format for Discord timestamp
     });
 }
 

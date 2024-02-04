@@ -53,4 +53,9 @@ document.getElementById('copyButton').addEventListener('click', function() {
     }
 });
 
+document.getElementById('clearButton').addEventListener('click', function() {
+    // Clear both textareas
+    document.getElementById('inputText').value = '';
+    document.getElementById('outputText').value = '';
+});
 
